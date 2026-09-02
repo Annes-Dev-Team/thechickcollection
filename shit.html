@@ -1,0 +1,157 @@
+<!--This code was generated COMPLETELY with chatgpt and thats why its shit-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chick Bomb Dodge</title>
+<style>
+body {
+    margin: 0;
+    background: linear-gradient(#87ceeb, #90ee90);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    background: #9be7ff;
+    border: 4px solid #333;
+}
+
+#info {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+</style>
+</head>
+<body>
+
+<div id="info">Score: 0</div>
+<canvas id="game" width="600" height="700"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const info = document.getElementById("info");
+
+let keys = {};
+
+document.addEventListener("keydown", e=>keys[e.key]=true);
+document.addEventListener("keyup", e=>keys[e.key]=false);
+
+const chick = {
+    x: 280,
+    y: 620,
+    w: 40,
+    h: 40,
+    speed: 7
+};
+
+let bombs = [];
+let score = 0;
+let gameOver = false;
+let bombSpeed = 3;
+
+function spawnBomb(){
+    bombs.push({
+        x: Math.random()*(canvas.width-30),
+        y: -30,
+        r: 15
+    });
+}
+
+setInterval(()=>{
+    if(!gameOver) spawnBomb();
+},700);
+
+function update(){
+
+    if(gameOver) return;
+
+    if(keys["ArrowLeft"] || keys["a"]) chick.x -= chick.speed;
+    if(keys["ArrowRight"] || keys["d"]) chick.x += chick.speed;
+
+    chick.x=Math.max(0,Math.min(canvas.width-chick.w,chick.x));
+
+    bombs.forEach(b=>{
+        b.y+=bombSpeed;
+
+        if(
+            b.x+b.r>chick.x &&
+            b.x-b.r<chick.x+chick.w &&
+            b.y+b.r>chick.y &&
+            b.y-b.r<chick.y+chick.h
+        ){
+            gameOver=true;
+        }
+    });
+
+    bombs = bombs.filter(b=>b.y<canvas.height+50);
+
+    score++;
+    bombSpeed = 3 + score/700;
+
+    info.textContent="Score: "+Math.floor(score/10);
+}
+
+function draw(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // Ground
+    ctx.fillStyle="#55aa33";
+    ctx.fillRect(0,660,600,40);
+
+    // Chick
+    ctx.font="40px serif";
+    ctx.fillText("🐥",chick.x,chick.y+35);
+
+    // Bombs
+    bombs.forEach(b=>{
+        ctx.beginPath();
+        ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+        ctx.fillStyle="black";
+        ctx.fill();
+
+        ctx.strokeStyle="gray";
+        ctx.lineWidth=3;
+        ctx.beginPath();
+        ctx.moveTo(b.x,b.y-b.r);
+        ctx.lineTo(b.x+8,b.y-b.r-8);
+        ctx.stroke();
+    });
+
+    if(gameOver){
+        ctx.fillStyle="rgba(0,0,0,0.6)";
+        ctx.fillRect(0,0,600,700);
+
+        ctx.fillStyle="white";
+        ctx.font="48px Arial";
+        ctx.fillText("GAME OVER",145,300);
+
+        ctx.font="30px Arial";
+        ctx.fillText("Final Score: "+Math.floor(score/10),180,360);
+
+        ctx.font="24px Arial";
+        ctx.fillText("Refresh the page to play again",120,430);
+    }
+}
+
+function loop(){
+    update();
+    draw();
+    requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+
+</body>
+</html>

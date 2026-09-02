@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist</title>
+</head>
+<body>
+<h1>Checklist</h1>
+
+<h2>Bare Metal</h2>
+<ul id="bmck"></ul>
+
+<h2>Python Libraries</h2>
+<ul id="pyck"></ul>
+
+<h2>C/C++ Libraries</h2>
+<ul id="cock"></ul> <!--i did this just to get the record for worst humor-->
+
+<h2>Legacy Operating Systems</h2>
+<ul id="lock"></ul>
+
+<h2>Game Engines</h2>
+<ul id="geck"></ul>
+
+<h2>Other Language Libraries</h2>
+<ul id="olck"></ul>
+
+
+
+
+<script src="lister.js"></script>
+<script>
+PARSELIST([
+    {name: "NES (6502)", done:false},
+    {name: "x86_32 (i686)", done:true},
+    {name: "Arm64", done:false}
+], "bmck");
+PARSELIST([
+    {name: "Pygame", done:true},
+    {name: "Panda3D", done:true},
+    {name: "Pyglet", done:false}
+], "pyck");
+PARSELIST([
+    {name: "Raylib", done:true},
+    {name: "SDL3", done:false},
+    {name: "Allegro", done:true}
+], "cock");
+PARSELIST([
+    {name: "DOS", done:true},
+    {name: "Classic Mac OS", done:false}
+], "lock");
+PARSELIST([
+    {name: "Polytoria", done:false},
+    {name: "Godot", done:false},
+    {name: "Game Maker", done:false},
+    {name: "Scratch/turbowarp", done:true}
+], "geck");
+PARSELIST([
+    {name: "LWJGL", done:false},
+    {name: "Blue Engine", done:false},
+    {name: "LITIENGINE", done:false}
+], "olck");
+</script>
+
+</body>
+</html>

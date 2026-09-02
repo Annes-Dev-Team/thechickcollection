@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOS CHICK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 1. Include the js-dos CSS style sheet -->
+    <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
+    <!-- 2. Include the js-dos JavaScript library -->
+    <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+    <style>
+        /* Give the player a visible window size */
+        #jsdos {
+            width: 640px;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 3. Create the DIV element where the game will render -->
+    <div id="jsdos"></div>
+
+    <!-- 4. Initialize the game runner -->
+    <script>
+        // Set the path for WebAssembly emulator modules (required)
+        //emulators.pathPrefix = "https://v8.js-dos.com/latest/emulators/";
+        console.log("navigator =", navigator);
+        console.log("navigator.storage =", navigator.storage);
+        console.log("window.navigator === navigator =", window.navigator === navigator);
+        // Pass your div ID and link to your .jsdos game bundle
+        Dos(document.getElementById("jsdos"), {url: "bundle.jsdos"});
+    </script>
+</body>
+</html>
