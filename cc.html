@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chick for cc</title>
+    <style>
+        body { background: #1a1a1a; margin: 0; padding: 20px; }
+        #embed-computer { width: 800px; height: 500px; margin: 20px auto; border: 2px solid #333; }
+    </style>
+</head>
+<body>
+
+    <div id="embed-computer"></div>
+
+    <!-- 1. Load the official JSZip library script synchronously -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.2/jszip.min.js"></script>
+    
+    <!-- 2. Load the Copy Cat RequireJS script loader -->
+    <script type="text/javascript" src="https://squiddev.cc"></script>
+    
+    <script>
+        // 3. SECURE LOCAL REGISTER: Intercept RequireJS and manually register the loaded JSZip instance.
+        // This stops RequireJS from attempting an external network fetch that hits CSP blocks.
+        define('jszip', [], function() { return window.JSZip; });
+
+        const MY_GAME_ZIP_BASE64 = "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";
+
+        // 4. Set paths configuration ONLY for copycat
+        require.config({ 
+            paths: { 
+                copycat: "https://squiddev.cc"
+            } 
+        });
+
+        // 5. Safely execute within RequireJS using the locally defined 'jszip' module
+        require(["copycat/embed", "jszip"], (setup, JSZip) => {
+            
+            const binaryString = atob(MY_GAME_ZIP_BASE64);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            JSZip.loadAsync(bytes).then(zip => {
+                const filesObject = {};
+                const promises = [];
+
+                zip.forEach((relativePath, file) => {
+                    if (!file.dir && !relativePath.startsWith("__MACOSX/")) {
+                        const p = file.async("string").then(content => {
+                            filesObject[relativePath] = content;
+                        });
+                        promises.push(p);
+                    }
+                });
+
+                return Promise.all(promises).then(() => {
+                    const config = {
+                        files: filesObject
+                    };
+                    
+                    // Boot terminal with preloaded files
+                    setup(document.getElementById("embed-computer"), config);
+                });
+            }).catch(err => {
+                console.error("Unpacking broke down:", err);
+            });
+        });
+    </script>
+</body>
+</html>
